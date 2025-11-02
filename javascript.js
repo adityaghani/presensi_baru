@@ -34,8 +34,8 @@
 const products = [
   {title:'Spartan Helmet',price:'Rp 480.000.000',img:'https://w7.pngwing.com/pngs/492/828/png-transparent-leonidas-i-spartan-warrior-helmet-film-knight-helmet-sports-equipment-300-spartans-300-thumbnail.png'},
   {title:'Airsoft Helmet',price:'Rp 200.000',img:'https://img.lazcdn.com/g/p/66848aced7ccc068ae925b3623a74bed.jpg_720x720q80.jpg'},
-  {title:'K6 S',price:'$299',img:'https://images.unsplash.com/photo-1526178619770-41f1b3b8f703?auto=format&fit=crop&w=800&q=60'},
-  {title:'AX9',price:'$259',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=60'},
+  {title:'Helm Lpg',price:'Rp 400.000',img:'https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2021/1/28/d3ff42f3-54bc-42d6-83ae-9b55aedd326a.jpg~tplv-aphluv4xwc-white-pad-v1:1600:1600.jpeg?lk3s=0ccea506&x-expires=1762110028&x-signature=9Jm3ot%2FdC3F520s9O8MogWsn2zM%3D&x-signature-webp=DjrO9PwcLLmYi03WUpFGiPvmziA%3D'},
+  {title:'Safety Helmet',price:'Rp 100.000',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1tXUYkXoE_So70Qdq2MSaggpy4jnMZoulqg&s'},
   {title:'Tourmodular',price:'$349',img:'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=60'},
   {title:'Visor Iridium',price:'$146',img:'https://images.unsplash.com/photo-1532634896-26909d0d4f14?auto=format&fit=crop&w=800&q=60'},
 ];
