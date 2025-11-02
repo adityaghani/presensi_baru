@@ -1,54 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Presensi Mahasiswa UNIKA Semarang</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <title>Toko Helm Arya</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="card p-4 bg-light text-dark">
-    <h3 class="text-center mb-3 fw-bold">Presensi Mahasiswa</h3>
+  <header>
+    <div class="container topbar">
+      <div class="brand"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36'><rect rx='6' width='36' height='36' fill='%230b5cff'/><text x='50%' y='55%' font-size='18' text-anchor='middle' fill='white' font-family='Arial'>AGV</text></svg>" alt="logo" width="36"><h1>AGV — Demo</h1></div>
+      <nav>
+        <ul>
+          <li><a href="#">Helmets</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+      <div class="actions"><button class="btn">Wishlist</button><button class="btn">Cart</button></div>
+    </div>
+  </header>
 
-    <form action="simpan_presensi.php" method="POST">
-      <div class="mb-3">
-        <label class="form-label">Nama Mahasiswa</label>
-        <input type="text" name="nama" class="form-control" required>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Performance. Safety. Style.</h2>
+        <p>Toko helm terjosjis</p>
+        <div class="hero-card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <strong>PISTA GP RR LIMITED</strong>
+              <div style="color:var(--muted);font-size:14px">Technical excellence and aesthetic research.</div>
+            </div>
+            <button class="btn">Buy now</button>
+          </div>
+        </div>
       </div>
-
-      <div class="mb-3">
-        <label class="form-label">NIM</label>
-        <input type="text" name="nim" class="form-control" required>
+      <div class="hero-card" style="padding:0">
+        <div class="carousel" aria-label="Hero carousel">
+          <div class="slides">
+            <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=60')"></div>
+            <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=60')"></div>
+            <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1526178619770-41f1b3b8f703?auto=format&fit=crop&w=1200&q=60')"></div>
+          </div>
+          <div class="carousel-controls">
+            <div class="control" id="prev">‹</div>
+            <div class="control" id="next">›</div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="mb-3">
-        <label class="form-label">Keterangan</label>
-        <select name="keterangan" class="form-select" required>
-          <option value="">-- Pilih --</option>
-          <option value="Hadir">Hadir</option>
-          <option value="Izin">Izin</option>
-          <option value="Alpa">Alpa</option>
-        </select>
+    <section class="section">
+      <h3>Picked for you</h3>
+      <div class="grid" id="products">
+        <!-- product cards populated by JS -->
       </div>
+    </section>
 
-      <button type="submit" class="btn btn-primary w-100">Simpan Presensi</button>
-
-      <div class="counter mt-2">
-        📋 Total Data Presensi: <?= $jumlah_data ?>
+    <section class="section">
+      <h3>Discover by riding style</h3>
+      <div class="categories">
+        <div class="pill">Racing</div>
+        <div class="pill">Sport</div>
+        <div class="pill">Touring</div>
+        <div class="pill">Modular</div>
       </div>
+    </section>
 
-      ...
-  <div class="text-center mt-3">
-    <a href="data_presensi.php" class="text-decoration-none">Lihat Data Presensi →</a>
-  </div>
-</form>
-</div>
+    <section class="section newsletter">
+      <div>
+        <h3>Join the community</h3>
+        <div>Complete your profile and get 15% off your next purchase.</div>
+      </div>
+      <form id="newsletter" onsubmit="event.preventDefault();alert('Thanks!')">
+        <input type="email" placeholder="Email address" required>
+        <button class="btn" type="submit">Subscribe</button>
+      </form>
+    </section>
+  </main>
 
-<!-- JS EXTERNAL -->
-<script src="assets/script.js"></script>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <strong>AGV Demo</strong>
+          <p style="color:var(--muted)">A static HTML/CSS/JS demo inspired by the AGV website layout.</p>
+        </div>
+        <div>
+          <strong>Customer</strong>
+          <div style="color:var(--muted);font-size:14px">Contact<br>Track order<br>FAQ</div>
+        </div>
+        <div>
+          <strong>Products</strong>
+          <div style="color:var(--muted);font-size:14px">Helmets<br>Visors<br>Accessories</div>
+        </div>
+        <div>
+          <strong>Follow</strong>
+          <div class="socials"><span>Facebook</span><span>Instagram</span><span>Youtube</span></div>
+        </div>
+      </div>
+      <div style="margin-top:18px;color:var(--muted);font-size:13px">© Demo — not affiliated with AGV.</div>
+    </div>
+  </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
-
