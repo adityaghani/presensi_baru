@@ -1,482 +1,761 @@
 :root {
+
   --accent: #0b5cff;
+
   --dark: #111;
+
   --muted: #666;
+
   --bg: #fafafa;
+
 }
+
+
 
 * {
+
   box-sizing: border-box;
+
   transition: all 0.25s ease-in-out;
+
 }
+
+
 
 body {
+
   font-family: Inter, system-ui;
+
   margin: 0;
+
   background: var(--bg);
+
   color: var(--dark);
+
   line-height: 1.4;
+
 }
+
+
 
 /* Header */
+
 header {
+
   background: #fff;
+
   box-shadow: 0 2px 8px rgba(11, 92, 255, 0.06);
+
   position: sticky;
+
   top: 0;
+
   z-index: 20;
+
 }
+
+
 
 .container {
+
   max-width: 1140px;
+
   margin: 0 auto;
+
   padding: 0 20px;
+
 }
+
+
 
 .topbar {
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   padding: 12px 0;
+
 }
+
+
 
 .brand {
+
   display: flex;
+
   gap: 12px;
+
   align-items: center;
+
   text-decoration: none;
+
   color: var(--dark);
+
 }
+
+
 
 .brand h1 {
+
   font-size: 18px;
+
   margin: 0;
+
 }
+
+
 
 nav ul {
+
   display: flex;
+
   gap: 18px;
+
   list-style: none;
+
   margin: 0;
+
   padding: 0;
+
 }
+
+
 
 nav a {
+
   color: var(--dark);
+
   text-decoration: none;
+
   font-weight: 600;
+
 }
+
+
 
 nav a:hover {
+
   color: var(--accent);
+
 }
+
+
 
 .actions {
+
   display: flex;
+
   gap: 10px;
+
   align-items: center;
+
 }
+
+
 
 .btn {
+
   background: var(--accent);
+
   color: #fff;
+
   border: none;
+
   padding: 8px 12px;
+
   border-radius: 8px;
+
   cursor: pointer;
+
 }
+
+
 
 .btn:hover {
+
   background: #0849d9;
+
 }
+
+
 
 /* Hero Section */
+
 .hero {
+
   display: grid;
+
   grid-template-columns: 1fr 420px;
+
   gap: 24px;
+
   align-items: center;
+
   padding: 36px 0;
+
 }
+
+
 
 .hero-left h2 {
+
   font-size: 40px;
+
   margin: 0 0 12px;
+
 }
+
+
 
 .hero-left p {
+
   color: var(--muted);
+
   margin: 0 0 18px;
+
 }
+
+
 
 .hero-card {
+
   background: #fff;
+
   padding: 18px;
+
   border-radius: 12px;
+
   box-shadow: 0 6px 30px rgba(11, 92, 255, 0.06);
+
 }
+
+
 
 .carousel {
+
   position: relative;
+
   overflow: hidden;
+
   border-radius: 12px;
+
 }
+
+
 
 .slides {
+
   display: flex;
+
   transition: transform 0.6s cubic-bezier(.2, .9, .2, 1);
+
 }
+
+
 
 .slide {
+
   min-width: 100%;
+
   height: 280px;
+
   background-size: cover;
+
   background-position: center;
+
 }
+
+
 
 .carousel-controls {
+
   position: absolute;
+
   left: 12px;
+
   right: 12px;
+
   top: 0;
+
   bottom: 0;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
 }
+
+
 
 .control {
+
   background: rgba(255, 255, 255, 0.8);
+
   border-radius: 50%;
+
   width: 36px;
+
   height: 36px;
+
   display: grid;
+
   place-items: center;
+
   cursor: pointer;
+
 }
+
+
 
 /* Products Section */
+
 .section {
+
   padding: 28px 0;
+
 }
+
+
 
 .section h3 {
+
   text-align: center;
+
   margin-bottom: 20px;
+
   font-size: 24px;
+
 }
+
+
 
 .grid {
+
   display: grid;
+
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
   gap: 18px;
+
 }
+
+
 
 .card {
+
   background: #fff;
+
   border-radius: 12px;
+
   padding: 12px;
+
   box-shadow: 0 6px 18px rgba(11, 92, 255, 0.04);
+
   display: flex;
+
   flex-direction: column;
+
 }
+
+
 
 .card img {
+
   width: 100%;
+
   height: 160px;
+
   object-fit: cover;
+
   border-radius: 8px;
+
 }
+
+
 
 .card h4 {
+
   margin: 10px 0 6px;
+
   font-size: 16px;
+
 }
+
+
 
 .price {
+
   color: var(--accent);
+
   font-weight: 700;
+
 }
+
+
 
 .card:hover {
+
   transform: translateY(-4px);
+
   box-shadow: 0 8px 24px rgba(11, 92, 255, 0.1);
+
 }
+
+
 
 /* Categories Section */
+
 .categories {
+
   display: flex;
+
   gap: 8px;
+
   flex-wrap: wrap;
+
   margin-top: 8px;
+
   justify-content: center;
+
 }
+
+
 
 .pill {
+
   background: #fff;
+
   padding: 8px 12px;
+
   border-radius: 999px;
+
   border: 1px solid #eee;
+
   font-weight: 600;
+
   cursor: pointer;
+
 }
+
+
 
 .pill:hover {
+
   border-color: var(--accent);
+
   color: var(--accent);
+
 }
+
+
 
 /* Newsletter Section */
+
 .newsletter {
+
   background: linear-gradient(90deg, #0b5cff 0%, #00b4ff 100%);
+
   color: #fff;
+
   padding: 28px;
+
   border-radius: 12px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   margin-top: 40px;
+
   flex-wrap: wrap;
+
   gap: 12px;
+
 }
+
+
 
 .newsletter form {
+
   display: flex;
+
   gap: 8px;
+
   flex-wrap: wrap;
+
 }
+
+
 
 input[type=email] {
+
   padding: 10px 12px;
+
   border-radius: 8px;
+
   border: none;
+
   min-width: 220px;
+
 }
+
+
 
 input[type=email]:focus {
+
   outline: none;
+
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
+
 }
+
+
 
 /* Footer */
+
 footer {
+
   padding: 28px 0;
+
   color: var(--muted);
+
 }
+
+
 
 .footer-grid {
+
   display: grid;
+
   grid-template-columns: repeat(4, 1fr);
+
   gap: 18px;
+
 }
+
+
 
 .footer-grid h5 {
+
   margin-top: 0;
+
   margin-bottom: 10px;
+
   color: var(--dark);
+
 }
+
+
 
 .footer-grid ul {
+
   list-style: none;
+
   padding: 0;
+
   margin: 0;
+
 }
+
+
 
 .footer-grid li {
+
   margin-bottom: 6px;
+
 }
+
+
 
 .footer-grid a {
+
   text-decoration: none;
+
   color: var(--muted);
+
 }
+
+
 
 .footer-grid a:hover {
+
   color: var(--accent);
+
 }
+
+
 
 .socials {
+
   display: flex;
+
   gap: 8px;
+
   margin-top: 8px;
+
 }
+
+
 
 .socials a {
+
   width: 30px;
+
   height: 30px;
+
   display: grid;
+
   place-items: center;
+
   background: #fff;
+
   border-radius: 50%;
+
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
   color: var(--accent);
+
   text-decoration: none;
+
   font-weight: bold;
+
 }
+
+
 
 /* Responsive Styles */
+
 @media (max-width: 900px) {
+
   .hero {
+
     grid-template-columns: 1fr;
+
   }
+
   .hero-left h2 {
+
     font-size: 28px;
+
   }
+
   .footer-grid {
+
     grid-template-columns: repeat(2, 1fr);
+
   }
+
 }
 
+
+
 @media (max-width: 520px) {
+
   nav ul {
+
     display: none;
+
   }
+
   .container {
+
     padding: 0 14px;
+
   }
+
   .hero-left p {
+
     font-size: 14px;
+
   }
+
   .grid {
+
     grid-template-columns: repeat(2, 1fr);
+
   }
-}
-/* ========================================= */
-/* === 💎 STYLING NOTIFIKASI MODERN 💎 === */
-/* ========================================= */
 
-/* Variabel warna (bisa Anda sesuaikan) */
-:root {
-	--toast-success: #28a745;
-	--toast-error: #dc3545;
-	--toast-info: #0b5cff; /* Pakai --accent Anda */
 }
 
-/* Kontainer utama di kanan atas.
-  Ini akan menampung semua notifikasi yang muncul.
-*/
-#toast-container {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	z-index: 2000;
-	display: flex;
-	flex-direction: column;
-	gap: 10px; /* Jarak antar notifikasi */
-}
+/* --- UNTUK NOTIFIKASI PROFESIONAL --- */
 
-/* Tampilan satu notifikasi (toast)
-*/
-.toast-modern {
-	display: flex;
-	align-items: flex-start; /* Agar tombol close rata */
-	gap: 12px;
-	padding: 14px;
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-	width: 100%;
-	max-width: 360px; /* Lebar maksimum */
-	
-	/* Border penanda tipe notifikasi */
-	border-left: 5px solid var(--toast-info); /* Default (info) */
-	
-	/* Animasi Masuk & Keluar 
-	  - Awalnya: di luar layar (kanan) & transparan
-	*/
-	opacity: 0;
-	transform: translateX(110%);
-	/* Transisi 'cubic-bezier' untuk efek 'mental' yang bagus */
-	transition: all 0.4s cubic-bezier(0.21, 1.02, 0.73, 1);
-}
+.toast {
 
-/* Kelas .show ditambahkan oleh JavaScript 
-  untuk memicu animasi MASUK
-*/
-.toast-modern.show {
-	opacity: 1;
-	transform: translateX(0);
-}
+  visibility: hidden; 
 
-/* Kelas .hide ditambahkan oleh JavaScript 
-  untuk memicu animasi KELUAR
-*/
-.toast-modern.hide {
-	opacity: 0;
-	transform: translateX(110%);
-}
+  opacity: 0;
 
-/* --- Variasi Warna Border --- */
-.toast-modern.success {
-	border-left-color: var(--toast-success);
-}
-.toast-modern.success .toast-icon {
-	color: var(--toast-success);
-}
+  min-width: 250px;
 
-.toast-modern.error {
-	border-left-color: var(--toast-error);
-}
-.toast-modern.error .toast-icon {
-	color: var(--toast-error);
-}
+  background-color: #333;
 
-.toast-modern.info {
-	border-left-color: var(--toast-info);
-}
-.toast-modern.info .toast-icon {
-	color: var(--toast-info);
+  color: #fff;
+
+  text-align: center;
+
+  border-radius: 5px;
+
+  padding: 16px;
+
+  position: fixed;
+
+  z-index: 2000;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  bottom: 30px;
+
+  transition: all 0.5s ease;
+
 }
 
 
-/* --- Konten di dalam Toast --- */
-.toast-icon {
-	font-size: 22px;
-	line-height: 1;
-	margin-top: 2px;
+
+.toast.show {
+
+  visibility: visible;
+
+  opacity: 1;
+
+  bottom: 50px;
+
 }
 
-.toast-message {
-	flex: 1; /* Ambil sisa ruang */
+
+
+/* --- UNTUK TOMBOL "REMOVE" DI KERANJANG --- */
+
+.cart-remove {
+
+  background: none;
+
+  border: none;
+
+  color: #ff4d4d; /* Warna merah */
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  padding: 0 5px;
+
+  margin-left: 10px;
+
+  font-weight: bold;
+
 }
 
-.toast-message h5 {
-	margin: 0 0 4px;
-	font-weight: 700;
-	color: var(--dark); /* Pakai variabel CSS Anda */
-}
+.cart-remove:hover {
 
-.toast-message p {
-	margin: 0;
-	font-size: 14px;
-	color: var(--muted); /* Pakai variabel CSS Anda */
-	line-height: 1.5;
-}
+  text-decoration: underline;
 
-.toast-close {
-	background: none;
-	border: none;
-	font-size: 24px;
-	color: #aaa;
-	cursor: pointer;
-	padding: 0;
-	line-height: 0.8; /* Sejajarkan 'x' */
-	margin-left: auto; /* Dorong ke paling kanan */
-	transition: color 0.2s ease;
-}
-.toast-close:hover {
-	color: var(--dark);
-}
-
-/* --- Responsif untuk HP --- */
-@media (max-width: 520px) {
-	#toast-container {
-		/* Penuhi lebar di HP, tapi dengan jarak */
-		right: 14px;
-		left: 14px;
-		width: auto;
-	}
-	.toast-modern {
-		max-width: 100%;
-	}
 }
