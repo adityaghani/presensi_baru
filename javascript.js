@@ -47,7 +47,12 @@ let cart = [];
 
 // 2. Ambil elemen-elemen HTML yang kita perlukan
 const grid = document.getElementById('products');
-const viewCartBtn = document.getElementById('viewCartBtn');
+
+// --- PERBAIKAN DI SINI ---
+// Mengganti 'viewCartBtn' menjadi 'cartButton' agar cocok dengan HTML
+const cartButton = document.getElementById('cartButton'); 
+// --- AKHIR PERBAIKAN ---
+
 const cartModal = document.getElementById('cartModal');
 const closeCartBtn = document.getElementById('closeCartBtn');
 const cartItemsList = document.getElementById('cartItemsList');
@@ -58,7 +63,10 @@ const toast = document.getElementById('toastNotification');
 
 // --- BARU: Fungsi untuk Notifikasi Profesional ---
 function showToast(message) {
-  if (!toast) return; // Hentikan jika elemen toast tidak ada
+  if (!toast) {
+    console.warn("Elemen toast notifikasi tidak ditemukan.");
+    return;
+  }
   toast.textContent = message;
   toast.classList.add("show");
   setTimeout(() => {
@@ -68,23 +76,17 @@ function showToast(message) {
 
 // 3. Fungsi untuk menambahkan produk ke keranjang
 function addToCart(product) {
-  // Menambahkan produk yang dipilih ke array 'cart'
   cart.push(product);
   
   // --- DIMODIFIKASI: Mengganti alert() dengan showToast() ---
-  // (Menggunakan Bahasa Inggris seperti yang diminta sebelumnya)
   showToast(`${product.title} has been added to cart.`);
   
-  // Perbarui tampilan keranjang
   updateCartDisplay();
 }
 
 // --- BARU: Fungsi untuk HAPUS (Delete) item dari keranjang ---
 function removeFromCart(index) {
-  // Hapus 1 item dari array 'cart' pada 'index' yang dipilih
   cart.splice(index, 1);
-  
-  // Perbarui lagi tampilan keranjangnya
   updateCartDisplay();
 }
 
@@ -97,33 +99,37 @@ function updateCartDisplay() {
 
   // Pastikan elemen list keranjang ada
   if (cartItemsList) {
-    // Kosongkan daftar di modal
     cartItemsList.innerHTML = '';
 
-    // Jika keranjang kosong, tampilkan pesan
     if (cart.length === 0) {
       cartItemsList.innerHTML = '<li>Keranjang Anda masih kosong.</li>';
       return;
     }
 
-    // --- DIMODIFIKASI: Loop dengan 'index' untuk tombol delete ---
     cart.forEach((item, index) => {
       const li = document.createElement('li');
       
-      // --- DIMODIFIKASI: Menambahkan tombol "Remove" (Delete) ---
+      // Menambahkan tombol "Remove" (Delete)
       li.innerHTML = `
         <img src="${item.img}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
         <strong style="flex: 1;">${item.title}</strong> 
         <span style="margin-right: 10px;">${item.price}</span>
         <button class="cart-remove" data-index="${index}">Remove</button>
       `;
+      // Menambahkan style agar item di keranjang rapi
+      li.style.display = 'flex';
+      li.style.alignItems = 'center';
+      li.style.justifyContent = 'space-between';
+      li.style.marginBottom = '10px';
+      li.style.borderBottom = '1px solid #eee';
+      li.style.paddingBottom = '5px';
+      
       cartItemsList.appendChild(li);
     });
 
-    // --- BARU: Tambahkan Event Listener untuk semua tombol "Remove" ---
+    // Tambahkan Event Listener untuk semua tombol "Remove"
     cartItemsList.querySelectorAll('.cart-remove').forEach(button => {
       button.addEventListener('click', (e) => {
-        // Ambil 'index' dari data-atribut tombol yang diklik
         const indexToRemove = e.target.dataset.index;
         removeFromCart(indexToRemove);
       });
@@ -132,12 +138,15 @@ function updateCartDisplay() {
 }
 
 // 5. Event Listeners untuk Modal Keranjang (Kode asli Anda)
-if (viewCartBtn && cartModal) {
-  viewCartBtn.addEventListener('click', () => {
+// --- PERBAIKAN DI SINI ---
+// Mengganti 'viewCartBtn' menjadi 'cartButton'
+if (cartButton && cartModal) {
+  cartButton.addEventListener('click', () => {
     cartModal.style.display = 'block';
-    updateCartDisplay();
+    updateCartDisplay(); // Selalu update saat dibuka
   });
 }
+// --- AKHIR PERBAIKAN ---
 
 if (closeCartBtn && cartModal) {
   closeCartBtn.addEventListener('click', () => {
