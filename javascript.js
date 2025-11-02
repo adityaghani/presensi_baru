@@ -19,8 +19,8 @@
 
 // Products
 const products = [
-  {title:'PISTA GP RR',price:'$499',img:'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=60'},
-  {title:'K1 S',price:'$399',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=60'},
+  {title:'Spartan Helmet',price:'Rp 480.000.000',img:'https://w7.pngwing.com/pngs/492/828/png-transparent-leonidas-i-spartan-warrior-helmet-film-knight-helmet-sports-equipment-300-spartans-300-thumbnail.png'},
+  {title:'Airsoft Helmet',price:'Rp 200.000',img:'https://img.lazcdn.com/g/p/66848aced7ccc068ae925b3623a74bed.jpg_720x720q80.jpg'},
   {title:'K6 S',price:'$299',img:'https://images.unsplash.com/photo-1526178619770-41f1b3b8f703?auto=format&fit=crop&w=800&q=60'},
   {title:'AX9',price:'$259',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=60'},
   {title:'Tourmodular',price:'$349',img:'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=60'},
