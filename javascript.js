@@ -8,7 +8,7 @@
 
   function show(i){
     idx = (i + total) % total;
-    slides.style.transform = translateX(${ -idx * 100 }%);
+    slides.style.transform = `translateX(${ -idx * 100 }%)`;
   }
 
   prev.addEventListener('click', ()=>show(idx-1));
