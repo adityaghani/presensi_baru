@@ -341,41 +341,142 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-/* --- UNTUK NOTIFIKASI PROFESIONAL --- */
-.toast {
-  visibility: hidden; 
-  opacity: 0;
-  min-width: 250px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 16px;
-  position: fixed;
-  z-index: 2000;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 30px;
-  transition: all 0.5s ease;
+/* ========================================= */
+/* === 💎 STYLING NOTIFIKASI MODERN 💎 === */
+/* ========================================= */
+
+/* Variabel warna (bisa Anda sesuaikan) */
+:root {
+	--toast-success: #28a745;
+	--toast-error: #dc3545;
+	--toast-info: #0b5cff; /* Pakai --accent Anda */
 }
 
-.toast.show {
-  visibility: visible;
-  opacity: 1;
-  bottom: 50px;
+/* Kontainer utama di kanan atas.
+  Ini akan menampung semua notifikasi yang muncul.
+*/
+#toast-container {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 2000;
+	display: flex;
+	flex-direction: column;
+	gap: 10px; /* Jarak antar notifikasi */
 }
 
-/* --- UNTUK TOMBOL "REMOVE" DI KERANJANG --- */
-.cart-remove {
-  background: none;
-  border: none;
-  color: #ff4d4d; /* Warna merah */
-  font-size: 14px;
-  cursor: pointer;
-  padding: 0 5px;
-  margin-left: 10px;
-  font-weight: bold;
+/* Tampilan satu notifikasi (toast)
+*/
+.toast-modern {
+	display: flex;
+	align-items: flex-start; /* Agar tombol close rata */
+	gap: 12px;
+	padding: 14px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+	width: 100%;
+	max-width: 360px; /* Lebar maksimum */
+	
+	/* Border penanda tipe notifikasi */
+	border-left: 5px solid var(--toast-info); /* Default (info) */
+	
+	/* Animasi Masuk & Keluar 
+	  - Awalnya: di luar layar (kanan) & transparan
+	*/
+	opacity: 0;
+	transform: translateX(110%);
+	/* Transisi 'cubic-bezier' untuk efek 'mental' yang bagus */
+	transition: all 0.4s cubic-bezier(0.21, 1.02, 0.73, 1);
 }
-.cart-remove:hover {
-  text-decoration: underline;
+
+/* Kelas .show ditambahkan oleh JavaScript 
+  untuk memicu animasi MASUK
+*/
+.toast-modern.show {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+/* Kelas .hide ditambahkan oleh JavaScript 
+  untuk memicu animasi KELUAR
+*/
+.toast-modern.hide {
+	opacity: 0;
+	transform: translateX(110%);
+}
+
+/* --- Variasi Warna Border --- */
+.toast-modern.success {
+	border-left-color: var(--toast-success);
+}
+.toast-modern.success .toast-icon {
+	color: var(--toast-success);
+}
+
+.toast-modern.error {
+	border-left-color: var(--toast-error);
+}
+.toast-modern.error .toast-icon {
+	color: var(--toast-error);
+}
+
+.toast-modern.info {
+	border-left-color: var(--toast-info);
+}
+.toast-modern.info .toast-icon {
+	color: var(--toast-info);
+}
+
+
+/* --- Konten di dalam Toast --- */
+.toast-icon {
+	font-size: 22px;
+	line-height: 1;
+	margin-top: 2px;
+}
+
+.toast-message {
+	flex: 1; /* Ambil sisa ruang */
+}
+
+.toast-message h5 {
+	margin: 0 0 4px;
+	font-weight: 700;
+	color: var(--dark); /* Pakai variabel CSS Anda */
+}
+
+.toast-message p {
+	margin: 0;
+	font-size: 14px;
+	color: var(--muted); /* Pakai variabel CSS Anda */
+	line-height: 1.5;
+}
+
+.toast-close {
+	background: none;
+	border: none;
+	font-size: 24px;
+	color: #aaa;
+	cursor: pointer;
+	padding: 0;
+	line-height: 0.8; /* Sejajarkan 'x' */
+	margin-left: auto; /* Dorong ke paling kanan */
+	transition: color 0.2s ease;
+}
+.toast-close:hover {
+	color: var(--dark);
+}
+
+/* --- Responsif untuk HP --- */
+@media (max-width: 520px) {
+	#toast-container {
+		/* Penuhi lebar di HP, tapi dengan jarak */
+		right: 14px;
+		left: 14px;
+		width: auto;
+	}
+	.toast-modern {
+		max-width: 100%;
+	}
 }
