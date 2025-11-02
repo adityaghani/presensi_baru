@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // --- DATABASE (No DB) ---
-    // (Database produk Anda tetap sama)
     const products = [
         {
             id: 1,
@@ -81,6 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartItems = document.getElementById("cartItems");
     const cartTotal = document.getElementById("cartTotal");
 
+    // Elemen DOM untuk Checkout
+    const checkoutButton = document.getElementById("checkoutButton");
+    const checkoutModal = document.getElementById("checkoutModal");
+    const checkoutSummary = document.getElementById("checkoutSummary");
+    const checkoutTotal = document.getElementById("checkoutTotal");
+    const confirmPurchaseButton = document.getElementById("confirmPurchaseButton");
+    const successModal = document.getElementById("successModal");
+
     // --- BARU: Elemen untuk Notifikasi Toast ---
     const toast = document.getElementById("toastNotification");
 
@@ -95,18 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
             minimumFractionDigits: 0
         }).format(number);
     };
-
+    
     // --- BARU: Fungsi untuk Notifikasi Profesional ---
-    /**
-     * Menampilkan notifikasi toast dengan pesan kustom.
-     * @param {string} message - Pesan yang akan ditampilkan.
-     */
     const showToast = (message) => {
-        if (!toast) return; // Hentikan jika elemen toast tidak ada
+        if (!toast) return;
         toast.textContent = message;
         toast.classList.add("show");
-        
-        // Sembunyikan notifikasi setelah 3 detik
         setTimeout(() => {
             toast.classList.remove("show");
         }, 3000);
@@ -114,8 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- FITUR 1: Render Produk ---
     const displayProducts = (filteredProducts) => {
-        productGrid.innerHTML = ""; // Kosongkan grid
-        const productsToShow = filteredProducts || products; // Tampilkan produk yang difilter atau semua produk
+        productGrid.innerHTML = "";
+        const productsToShow = filteredProducts || products;
 
         if (productsToShow.length === 0) {
             productGrid.innerHTML = "<p>Produk tidak ditemukan.</p>";
@@ -138,38 +139,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // --- FITUR 2: Detail Produk dengan 3D/AR Viewer ---
+    // --- FITUR 2: Detail Produk ---
     const showProductDetail = (productId) => {
         const product = products.find(p => p.id === productId);
         if (!product) return;
 
-        // Konten untuk 3D Viewer (Tidak berubah)
         let modelViewerHTML = "";
         if (product.modelSrc) {
-            modelViewerHTML = `
-                <model-viewer 
-                    src="${product.modelSrc}" 
-                    ios-src="${product.iosSrc}"
-                    ar 
-                    ar-modes="webxr scene-viewer quick-look"
-                    camera-controls 
-                    auto-rotate
-                    enable-pan
-                    shadow-intensity="1">
-                    <div class="progress-bar hide" slot="progress-bar">
-                        <div class="update-bar"></div>
-                    </div>
-                </model-viewer>
-            `;
+            modelViewerHTML = `<model-viewer src="${product.modelSrc}" ios-src="${product.iosSrc}" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate enable-pan shadow-intensity="1"><div class="progress-bar hide" slot="progress-bar"><div class="update-bar"></div></div></model-viewer>`;
         } else {
             modelViewerHTML = `<img src="${product.image}" alt="${product.name}" style="width:100%; height: 400px; object-fit: contain;">`;
         }
         
         modalBody.innerHTML = `
             <div class="modal-layout">
-                <div class="modal-3d">
-                    ${modelViewerHTML}
-                </div>
+                <div class="modal-3d">${modelViewerHTML}</div>
                 <div class="modal-details">
                     <h2>${product.name}</h2>
                     <p>${product.brand}</p>
@@ -181,16 +165,15 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         // --- DIMODIFIKASI: Mengganti alert() dengan showToast() ---
-        modalBody.querySelector(".add-to-cart-button").addEventListener("click", (e) => {
+        modalBody.querySelector(".add-to-cart-button").addEventListener("click", () => {
             addToCart(product.id);
-            // Menggunakan notifikasi profesional (dalam Bahasa Inggris)
-            showToast(`${product.name} has been added to cart.`); 
+            showToast(`${product.name} has been added to cart.`);
         });
 
         productModal.style.display = "block";
     };
 
-    // --- FITUR 3: Instant Search (Pencarian Real-time) ---
+    // --- FITUR 3: Instant Search ---
     searchInput.addEventListener("keyup", (e) => {
         const query = e.target.value.toLowerCase();
         const filteredProducts = products.filter(product => 
@@ -200,9 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         displayProducts(filteredProducts);
     });
 
-    // --- FITUR 4: Persistent Shopping Cart (Keranjang Belanja) ---
-    
-    // Fungsi untuk menambahkan item ke keranjang (Tidak berubah)
+    // --- FITUR 4: Persistent Shopping Cart ---
     const addToCart = (productId) => {
         const product = products.find(p => p.id === productId);
         const existingItem = cart.find(item => item.id === productId);
@@ -217,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartUI();
     };
 
-    // Fungsi untuk mengubah kuantitas (Tidak berubah)
     const changeQuantity = (productId, action) => {
         const item = cart.find(item => item.id === productId);
         if (!item) return;
@@ -227,7 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (action === 'decrease') {
             item.quantity--;
             if (item.quantity <= 0) {
-                // Hapus item jika kuantitas 0 (logika ini tetap ada)
                 cart = cart.filter(i => i.id !== productId);
             }
         }
@@ -236,29 +215,22 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartUI();
     };
 
-    // --- BARU: Fungsi untuk menghapus item langsung ---
-    /**
-     * Menghapus item dari keranjang berdasarkan ID, terlepas dari kuantitas.
-     * @param {number} productId - ID produk yang akan dihapus.
-     */
+    // --- BARU: Fungsi untuk menghapus item langsung dari keranjang ---
     const removeFromCart = (productId) => {
         cart = cart.filter(item => item.id !== productId);
         saveCart();
         updateCartUI();
     };
 
-    // Fungsi untuk menyimpan keranjang ke localStorage (Tidak berubah)
     const saveCart = () => {
         localStorage.setItem('cart', JSON.stringify(cart));
     };
 
-    // --- DIMODIFIKASI: Memperbarui UI Keranjang ---
+    // --- DIMODIFIKASI: Memperbarui UI Keranjang dengan tombol Remove ---
     const updateCartUI = () => {
-        // Update Cart Count (di header)
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCount.textContent = totalItems;
 
-        // Update Cart Modal
         if (cart.length === 0) {
             cartItems.innerHTML = "<p>Keranjang Anda kosong.</p>";
             cartTotal.textContent = formatRupiah(0);
@@ -271,8 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cart.forEach(item => {
             const itemElement = document.createElement("div");
             itemElement.className = "cart-item";
-            
-            // --- MODIFIKASI HTML: Menambahkan tombol "Remove" ---
+            // MODIFIKASI HTML: Menambahkan tombol remove
             itemElement.innerHTML = `
                 <div class="cart-item-info">
                     <img src="${item.image}" alt="${item.name}">
@@ -294,7 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         cartTotal.textContent = formatRupiah(totalHarga);
 
-        // Event listener untuk tombol +/- (Tidak berubah)
         cartItems.querySelectorAll('.cart-decrease').forEach(button => {
             button.addEventListener('click', (e) => changeQuantity(Number(e.target.dataset.id), 'decrease'));
         });
@@ -308,33 +278,68 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    // --- FITUR 5: Checkout Process ---
+    const displayCheckoutSummary = () => {
+        checkoutSummary.innerHTML = "";
+        let totalHarga = 0;
+
+        cart.forEach(item => {
+            const summaryItem = document.createElement('div');
+            summaryItem.className = 'summary-item';
+            summaryItem.innerHTML = `
+                <span>${item.quantity}x ${item.name}</span>
+                <span>${formatRupiah(item.price * item.quantity)}</span>
+            `;
+            checkoutSummary.appendChild(summaryItem);
+            totalHarga += item.price * item.quantity;
+        });
+
+        checkoutTotal.textContent = formatRupiah(totalHarga);
+    };
+
+    checkoutButton.addEventListener("click", () => {
+        if (cart.length === 0) {
+            // --- DIMODIFIKASI: Mengganti alert() dengan showToast() ---
+            showToast("Keranjang Anda kosong. Silakan tambahkan produk.");
+            return;
+        }
+        cartModal.style.display = "none";
+        displayCheckoutSummary();
+        checkoutModal.style.display = "block";
+    });
+
+    confirmPurchaseButton.addEventListener("click", () => {
+        cart = [];
+        saveCart();
+        updateCartUI();
+
+        checkoutModal.style.display = "none";
+        successModal.style.display = "block";
+    });
+
     // --- Event Listener Global (Modal) ---
-    
-    // Tampilkan modal keranjang
     cartToggle.addEventListener("click", () => {
         updateCartUI();
         cartModal.style.display = "block";
     });
 
-    // Tutup modal (untuk semua modal)
     closeModalButtons.forEach(button => {
         button.addEventListener("click", () => {
             productModal.style.display = "none";
             cartModal.style.display = "none";
+            checkoutModal.style.display = "none";
+            successModal.style.display = "none";
         });
     });
 
-    // Tutup modal jika klik di luar area modal
     window.addEventListener("click", (e) => {
-        if (e.target === productModal) {
-            productModal.style.display = "none";
-        }
-        if (e.target === cartModal) {
-            cartModal.style.display = "none";
-        }
+        if (e.target === productModal) productModal.style.display = "none";
+        if (e.target === cartModal) cartModal.style.display = "none";
+        if (e.target === checkoutModal) checkoutModal.style.display = "none";
+        if (e.target === successModal) successModal.style.display = "none";
     });
 
     // --- Inisialisasi Aplikasi ---
-    displayProducts(); // Tampilkan semua produk saat halaman pertama kali dimuat
-    updateCartUI(); // Update hitungan keranjang saat halaman dimuat
+    displayProducts();
+    updateCartUI();
 });
