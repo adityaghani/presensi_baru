@@ -80,16 +80,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartItems = document.getElementById("cartItems");
     const cartTotal = document.getElementById("cartTotal");
 
-    // Elemen DOM untuk Checkout
+    // --- BARU: Elemen DOM untuk Checkout ---
     const checkoutButton = document.getElementById("checkoutButton");
     const checkoutModal = document.getElementById("checkoutModal");
     const checkoutSummary = document.getElementById("checkoutSummary");
     const checkoutTotal = document.getElementById("checkoutTotal");
     const confirmPurchaseButton = document.getElementById("confirmPurchaseButton");
     const successModal = document.getElementById("successModal");
-
-    // --- BARU: Elemen untuk Notifikasi Toast ---
-    const toast = document.getElementById("toastNotification");
 
     // --- State Aplikasi (Menggunakan LocalStorage) ---
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -101,16 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
             currency: "IDR",
             minimumFractionDigits: 0
         }).format(number);
-    };
-    
-    // --- BARU: Fungsi untuk Notifikasi Profesional ---
-    const showToast = (message) => {
-        if (!toast) return;
-        toast.textContent = message;
-        toast.classList.add("show");
-        setTimeout(() => {
-            toast.classList.remove("show");
-        }, 3000);
     };
 
     // --- FITUR 1: Render Produk ---
@@ -164,10 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
 
-        // --- DIMODIFIKASI: Mengganti alert() dengan showToast() ---
-        modalBody.querySelector(".add-to-cart-button").addEventListener("click", () => {
+        modalBody.querySelector(".add-to-cart-button").addEventListener("click", (e) => {
             addToCart(product.id);
-            showToast(`${product.name} has been added to cart.`);
+            alert(`${product.name} telah ditambahkan ke keranjang!`);
         });
 
         productModal.style.display = "block";
@@ -215,18 +201,10 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartUI();
     };
 
-    // --- BARU: Fungsi untuk menghapus item langsung dari keranjang ---
-    const removeFromCart = (productId) => {
-        cart = cart.filter(item => item.id !== productId);
-        saveCart();
-        updateCartUI();
-    };
-
     const saveCart = () => {
         localStorage.setItem('cart', JSON.stringify(cart));
     };
 
-    // --- DIMODIFIKASI: Memperbarui UI Keranjang dengan tombol Remove ---
     const updateCartUI = () => {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCount.textContent = totalItems;
@@ -243,14 +221,12 @@ document.addEventListener("DOMContentLoaded", () => {
         cart.forEach(item => {
             const itemElement = document.createElement("div");
             itemElement.className = "cart-item";
-            // MODIFIKASI HTML: Menambahkan tombol remove
             itemElement.innerHTML = `
                 <div class="cart-item-info">
                     <img src="${item.image}" alt="${item.name}">
                     <div>
                         <strong>${item.name}</strong>
                         <p>${formatRupiah(item.price)}</p>
-                        <button class="cart-remove" data-id="${item.id}">Remove</button>
                     </div>
                 </div>
                 <div class="cart-item-actions">
@@ -271,21 +247,18 @@ document.addEventListener("DOMContentLoaded", () => {
         cartItems.querySelectorAll('.cart-increase').forEach(button => {
             button.addEventListener('click', (e) => changeQuantity(Number(e.target.dataset.id), 'increase'));
         });
-
-        // --- BARU: Event listener untuk tombol "Remove" ---
-        cartItems.querySelectorAll('.cart-remove').forEach(button => {
-            button.addEventListener('click', (e) => removeFromCart(Number(e.target.dataset.id)));
-        });
     };
 
-    // --- FITUR 5: Checkout Process ---
+    // --- BARU: FITUR 5: Checkout Process ---
+    
+    // Fungsi untuk menampilkan ringkasan checkout
     const displayCheckoutSummary = () => {
         checkoutSummary.innerHTML = "";
         let totalHarga = 0;
 
         cart.forEach(item => {
             const summaryItem = document.createElement('div');
-            summaryItem.className = 'summary-item';
+            summaryItem.className = 'summary-item'; // Anda bisa menambahkan style untuk class ini
             summaryItem.innerHTML = `
                 <span>${item.quantity}x ${item.name}</span>
                 <span>${formatRupiah(item.price * item.quantity)}</span>
@@ -297,10 +270,10 @@ document.addEventListener("DOMContentLoaded", () => {
         checkoutTotal.textContent = formatRupiah(totalHarga);
     };
 
+    // Event listener untuk tombol checkout di keranjang
     checkoutButton.addEventListener("click", () => {
         if (cart.length === 0) {
-            // --- DIMODIFIKASI: Mengganti alert() dengan showToast() ---
-            showToast("Keranjang Anda kosong. Silakan tambahkan produk.");
+            alert("Keranjang Anda kosong. Silakan tambahkan produk terlebih dahulu.");
             return;
         }
         cartModal.style.display = "none";
@@ -308,35 +281,42 @@ document.addEventListener("DOMContentLoaded", () => {
         checkoutModal.style.display = "block";
     });
 
+    // Event listener untuk tombol konfirmasi pembelian
     confirmPurchaseButton.addEventListener("click", () => {
+        // Kosongkan keranjang
         cart = [];
         saveCart();
         updateCartUI();
 
+        // Tutup modal checkout dan tampilkan modal sukses
         checkoutModal.style.display = "none";
         successModal.style.display = "block";
     });
 
+
     // --- Event Listener Global (Modal) ---
+    
     cartToggle.addEventListener("click", () => {
         updateCartUI();
         cartModal.style.display = "block";
     });
 
+    // --- MODIFIKASI: Menutup semua jenis modal ---
     closeModalButtons.forEach(button => {
         button.addEventListener("click", () => {
             productModal.style.display = "none";
             cartModal.style.display = "none";
-            checkoutModal.style.display = "none";
-            successModal.style.display = "none";
+            checkoutModal.style.display = "none"; // Tambahan
+            successModal.style.display = "none"; // Tambahan
         });
     });
 
+    // --- MODIFIKASI: Menutup semua jenis modal jika klik di luar ---
     window.addEventListener("click", (e) => {
         if (e.target === productModal) productModal.style.display = "none";
         if (e.target === cartModal) cartModal.style.display = "none";
-        if (e.target === checkoutModal) checkoutModal.style.display = "none";
-        if (e.target === successModal) successModal.style.display = "none";
+        if (e.target === checkoutModal) checkoutModal.style.display = "none"; // Tambahan
+        if (e.target === successModal) successModal.style.display = "none"; // Tambahan
     });
 
     // --- Inisialisasi Aplikasi ---
