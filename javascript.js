@@ -43,13 +43,10 @@ const products = [
 let cart = [];
 
 //2. Ambil elemen-elemen HTML yang kita perlukan
-const grid = document.getElementById('products');
+// Mengambil elemen grid produk
+const grid = document.querySelector('.grid-container'); 
 
-// --- PERBAIKAN ---
-// Tanda hubung '-' di akhir baris ini telah dihapus
 const cartButton = document.getElementById('cartButton');
-// --- AKHIR PERBAIKAN ---
-
 const cartModal = document.getElementById('cartModal');
 const closeCartBtn = document.getElementById('closeCartBtn');
 const cartItemsList = document.getElementById('cartItemsList');
@@ -72,14 +69,11 @@ function showToast(message) {
 // 3. Fungsi untuk menambahkan produk ke keranjang
 function addToCart(product) {
   cart.push(product);
-
-  // --- DIMODIFIKASI: Mengganti alert() dengan showToast() ---
   showToast(`${product.title} has been added to cart.`);
-
   updateCartDisplay();
 }
 
-//  Fungsi untuk HAPUS (Delete) item dari keranjang ---
+// Fungsi untuk HAPUS (Delete) item dari keranjang ---
 function removeFromCart(index) {
   cart.splice(index, 1);
   updateCartDisplay();
@@ -109,7 +103,7 @@ function updateCartDisplay() {
         <img src="${item.img}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
         <strong style="flex: 1;">${item.title}</strong> 
         <span style="margin-right: 10px;">${item.price}</span>
-        <button class="cart-remove" data-index="${index}">Remove</button>
+        <button class="btn cart-remove" data-index="${index}">Remove</button>
       `;
       // Menambahkan style agar item di keranjang rapi
       li.style.display = 'flex';
@@ -152,8 +146,7 @@ window.addEventListener('click', (event) => {
   }
 });
 
-// --- Modifikasi Kode Rendering Produk Anda ---
-// (Kode asli Anda, tidak diubah)
+// 6. Kode untuk Merender/Menampilkan Produk ke Halaman
 if (grid) {
   products.forEach(p => {
     const el = document.createElement('article');
@@ -161,15 +154,16 @@ if (grid) {
     el.innerHTML = `
       <img src="${p.img}" alt="${p.title}">
       <h4>${p.title}</h4>
-      <div style="flex:1"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div class="price">${p.price}</div>
-        <button class="btn btn-add">Add</button> 
+      
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="price">${p.price}</div>
+          <button class="btn btn-add">Add</button> 
+        </div>
       </div>
     `;
 
     const addButton = el.querySelector('.btn-add');
-
     addButton.addEventListener('click', () => {
       addToCart(p);
     });
